@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -14,6 +14,7 @@ import DraggableFlatList, {
   ScaleDecorator,
 } from "react-native-draggable-flatlist";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { FavouritesContext } from "../components/WelcomeScreen";
 
 const MainPage = () => {
   const filters = [
@@ -33,11 +34,13 @@ const MainPage = () => {
       name: "Property Price",
     },
   ];
+
+  const { favourites, setFavourites } = useContext(FavouritesContext);
+
   const [categories, setCategories] = useState(filters);
   const [isShowCity, setIsShowCity] = useState([
     { cityName: "fdfwe", showCity: false },
   ]);
-  const [favouriteCities, setFavouriteCities] = useState([]);
 
   const CITY_INFORMATION = [
     {
@@ -1634,9 +1637,9 @@ const MainPage = () => {
     },
   ];
 
-  const data = [...CITY_INFORMATION];
+  console.log(favourites);
 
-  console.log(favouriteCities);
+  const data = [...CITY_INFORMATION];
 
   let new_data = [];
 
@@ -1859,10 +1862,7 @@ const MainPage = () => {
 
               <Pressable
                 onPress={() =>
-                  setFavouriteCities([
-                    ...favouriteCities,
-                    isShowCity[0].cityName,
-                  ])
+                  setFavourites([...favourites, isShowCity[0].cityName])
                 }
               >
                 <Text>Add Favourites</Text>

@@ -1,7 +1,10 @@
 import React from "react";
-import { Text, View, ImageBackground } from "react-native";
+import { Text, View, ImageBackground, FlatList } from "react-native";
+import { FavouritesContext } from "../components/WelcomeScreen";
 
 const FindCity = () => {
+  const { favourites, setFavourites } = React.useContext(FavouritesContext);
+
   return (
     <ImageBackground
       style={{
@@ -11,7 +14,11 @@ const FindCity = () => {
       }}
       source={require("../utils/wallpaper.jpg")}
     >
-      <Text>Deneme</Text>
+      <FlatList
+        style={{ top: 100 }}
+        data={favourites}
+        renderItem={({ item }) => <Text>{item}</Text>}
+      />
     </ImageBackground>
   );
 };
