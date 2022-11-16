@@ -14,11 +14,6 @@ import DraggableFlatList, {
   ScaleDecorator,
 } from "react-native-draggable-flatlist";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import TripHello from "../utils/TripHello.svg";
-import FindCity from "./FindCity";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-
-const Tab = createBottomTabNavigator();
 
 const MainPage = () => {
   const filters = [
@@ -42,6 +37,7 @@ const MainPage = () => {
   const [isShowCity, setIsShowCity] = useState([
     { cityName: "fdfwe", showCity: false },
   ]);
+  const [favouriteCities, setFavouriteCities] = useState([]);
 
   const CITY_INFORMATION = [
     {
@@ -1640,6 +1636,8 @@ const MainPage = () => {
 
   const data = [...CITY_INFORMATION];
 
+  console.log(favouriteCities);
+
   let new_data = [];
 
   const appHandler = () => {
@@ -1857,6 +1855,17 @@ const MainPage = () => {
                 }}
               >
                 <Text>Try again!</Text>
+              </Pressable>
+
+              <Pressable
+                onPress={() =>
+                  setFavouriteCities([
+                    ...favouriteCities,
+                    isShowCity[0].cityName,
+                  ])
+                }
+              >
+                <Text>Add Favourites</Text>
               </Pressable>
             </View>
           </View>
