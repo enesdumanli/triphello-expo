@@ -1,7 +1,7 @@
 // @ts-nocheck this file is not typescript
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import MainPage from "./Discover";
-import FindCity from "./Favourites";
+import Discover from "./Discover";
+import Favourites from "./Favourites";
 import React from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
@@ -16,7 +16,7 @@ const WelcomeScreen = () => {
       <Tab.Navigator>
         <Tab.Screen
           name="Discover"
-          component={MainPage}
+          component={Discover}
           options={{
             headerShown: false,
             tabBarIcon: ({ color, size }) => (
@@ -31,7 +31,7 @@ const WelcomeScreen = () => {
         />
         <Tab.Screen
           name="Favourites"
-          component={FindCity}
+          component={Favourites}
           options={{
             headerShown: false,
             tabBarIcon: ({ color }) => (

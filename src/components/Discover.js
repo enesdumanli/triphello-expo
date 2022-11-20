@@ -17,7 +17,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { FavouritesContext } from "./TabNavigationHandler";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-const Discover = () => {
+const Discover = ({ navigation }) => {
   const filters = [
     {
       name: "Traffic",
@@ -1637,8 +1637,8 @@ const Discover = () => {
       Traffic: 1,
     },
   ];
-
-  console.log(favourites);
+  const countries = CITY_INFORMATION.map((city) => city.name.split(",")[1]);
+  const cities = CITY_INFORMATION.map((city) => city.name.split(",")[0]);
 
   const data = [...CITY_INFORMATION];
 
@@ -1673,11 +1673,20 @@ const Discover = () => {
     setIsShowCity([
       { cityName: temp_city.name, showCity: !isShowCity[0].showCity },
     ]);
-
-    console.log(temp_city);
   };
 
-  console.log(categories);
+  const visitNearby = (temp_city) => {
+    let sameCountryCities = [];
+    let itemCountry = temp_city.split(",")[1];
+
+    for (let i = 0; i < countries.length; i++) {
+      if (countries[i] === itemCountry) {
+        sameCountryCities.push(cities[i]);
+      }
+    }
+
+    return sameCountryCities;
+  };
 
   const renderItem = ({ item, drag, isActive }) => {
     return (
@@ -1769,17 +1778,17 @@ const Discover = () => {
 
           <TouchableOpacity
             style={{
-              backgroundColor: "#D4C5E2",
-              width: 60,
-              top: 40,
-              height: 30,
+              top: 30,
               borderRadius: 12,
-              justifyContent: "center",
               alignItems: "center",
+              alignSelf: "baseline",
             }}
             onPress={() => setCategories(filters)}
           >
-            <Text style={{ color: "white" }}>Refresh</Text>
+            <MaterialCommunityIcons name="refresh" size={24} color={"black"} />
+            <Text style={{ textAlignVertical: "center", fontWeight: "500" }}>
+              Refresh Preferences
+            </Text>
           </TouchableOpacity>
         </View>
         <View style={{ paddingVertical: 50 }}>
@@ -1859,9 +1868,10 @@ const Discover = () => {
                   flexDirection: "row",
                   justifyContent: "space-around",
                   width: "60%",
+                  marginTop: 20,
                 }}
               >
-                <Pressable
+                <TouchableOpacity
                   onPress={() =>
                     setIsShowCity([{ cityName: "", showCity: false }])
                   }
@@ -1878,9 +1888,9 @@ const Discover = () => {
                     size={48}
                     color={"black"}
                   />
-                </Pressable>
+                </TouchableOpacity>
 
-                <Pressable
+                <TouchableOpacity
                   onPress={() => {
                     setFavourites([...favourites, isShowCity[0].cityName]);
                     setIsShowCity([{ cityName: "", showCity: false }]);
@@ -1906,11 +1916,35 @@ const Discover = () => {
                     size={48}
                     color={"#D81E5B"}
                   />
-                </Pressable>
+                </TouchableOpacity>
               </View>
-              <Text style={{ margin: 20 }}>
-                Or visit a nearby city in India!
-              </Text>
+              <TouchableOpacity
+                onPress={() => {
+                  let nearbyCities = visitNearby(isShowCity[0].cityName);
+                  console.log(nearbyCities);
+                  navigation.navigate("NearbyCities", {
+                    nearbyCities: nearbyCities,
+                  });
+                }}
+                style={{
+                  backgroundColor: "#DFBE99",
+                  borderRadius: 12,
+                  marginTop: 20,
+                }}
+              >
+                <Text
+                  style={{
+                    margin: 20,
+                    color: "#252716",
+                    fontSize: 16,
+                    fontWeight: "bold",
+                  }}
+                >
+                  {`or visit a nearby city in ${
+                    isShowCity[0].cityName.split(",")[1]
+                  }!`}
+                </Text>
+              </TouchableOpacity>
             </View>
           </View>
         </Modal>

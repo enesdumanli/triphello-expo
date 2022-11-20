@@ -6,7 +6,7 @@ import { SvgUri } from "react-native-svg";
 const LandingPage = ({ navigation }) => {
   useEffect(() => {
     setTimeout(() => {
-      navigation.navigate("WelcomeScreen");
+      navigation.navigate("TabNavigationHandler");
     }, 2000);
   }, []);
   return (
