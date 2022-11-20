@@ -28,4 +28,7 @@ const WelcomeScreen = () => {
   );
 };
 
+// from our estimates, you care about the following lines:
+// home page that covers the basics of the app
+
 export default WelcomeScreen;

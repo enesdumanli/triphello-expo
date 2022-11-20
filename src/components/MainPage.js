@@ -1861,11 +1861,18 @@ const MainPage = () => {
               </Pressable>
 
               <Pressable
-                onPress={() =>
-                  setFavourites([...favourites, isShowCity[0].cityName])
-                }
+                onPress={() => {
+                  setFavourites([...favourites, isShowCity[0].cityName]);
+                  setIsShowCity([{ cityName: "", showCity: false }]);
+                }}
+                style={{
+                  marginTop: 20,
+                  padding: 20,
+                  backgroundColor: "red",
+                  borderRadius: 10,
+                }}
               >
-                <Text>Add Favourites</Text>
+                <Text style={{ color: "white" }}>Add Favourites</Text>
               </Pressable>
             </View>
           </View>
