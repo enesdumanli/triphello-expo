@@ -1921,10 +1921,10 @@ const Discover = ({ navigation }) => {
               <TouchableOpacity
                 onPress={() => {
                   let nearbyCities = visitNearby(isShowCity[0].cityName);
-                  console.log(nearbyCities);
                   navigation.navigate("NearbyCities", {
                     nearbyCities: nearbyCities,
                   });
+                  setIsShowCity([{ cityName: "", showCity: false }]);
                 }}
                 style={{
                   backgroundColor: "#DFBE99",
