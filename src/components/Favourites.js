@@ -6,10 +6,10 @@ import {
   FlatList,
   TouchableOpacity,
 } from "react-native";
-import { FavouritesContext } from "../components/WelcomeScreen";
+import { FavouritesContext } from "./TabNavigationHandler";
 import { SvgUri } from "react-native-svg";
 
-const FindCity = () => {
+const Discover = () => {
   const { favourites, setFavourites } = React.useContext(FavouritesContext);
   const CITY_INFORMATION = [
     {
@@ -1678,4 +1678,4 @@ const FindCity = () => {
   );
 };
 
-export default FindCity;
+export default Discover;

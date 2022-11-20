@@ -14,9 +14,10 @@ import DraggableFlatList, {
   ScaleDecorator,
 } from "react-native-draggable-flatlist";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { FavouritesContext } from "../components/WelcomeScreen";
+import { FavouritesContext } from "./TabNavigationHandler";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-const MainPage = () => {
+const Discover = () => {
   const filters = [
     {
       name: "Traffic",
@@ -1814,7 +1815,7 @@ const MainPage = () => {
           </TouchableOpacity>
         </View>
         <Modal
-          animationType={"slide"}
+          animationType={"fade"}
           transparent={true}
           visible={isShowCity[0].showCity}
         >
@@ -1843,37 +1844,73 @@ const MainPage = () => {
                 elevation: 5,
               }}
             >
-              <Text style={{ fontSize: 24, fontWeight: "bold" }}>
+              <Text
+                style={{
+                  fontSize: 24,
+                  fontWeight: "bold",
+                  color: "#0B4F6C",
+                  textAlign: "center",
+                }}
+              >
                 Let's visit {isShowCity[0].cityName}!
               </Text>
-              <Pressable
-                onPress={() =>
-                  setIsShowCity([{ cityName: "", showCity: false }])
-                }
+              <View
                 style={{
-                  marginTop: 20,
-                  padding: 20,
-                  backgroundColor: "gray",
-                  borderRadius: 10,
+                  flexDirection: "row",
+                  justifyContent: "space-around",
+                  width: "60%",
                 }}
               >
-                <Text>Try again!</Text>
-              </Pressable>
+                <Pressable
+                  onPress={() =>
+                    setIsShowCity([{ cityName: "", showCity: false }])
+                  }
+                  style={{
+                    borderRadius: 10,
+                    padding: 10,
+                  }}
+                >
+                  <Text style={{ color: "black", fontWeight: "600" }}>
+                    Try again!
+                  </Text>
+                  <MaterialCommunityIcons
+                    name="refresh"
+                    size={48}
+                    color={"black"}
+                  />
+                </Pressable>
 
-              <Pressable
-                onPress={() => {
-                  setFavourites([...favourites, isShowCity[0].cityName]);
-                  setIsShowCity([{ cityName: "", showCity: false }]);
-                }}
-                style={{
-                  marginTop: 20,
-                  padding: 20,
-                  backgroundColor: "red",
-                  borderRadius: 10,
-                }}
-              >
-                <Text style={{ color: "white" }}>Add Favourites</Text>
-              </Pressable>
+                <Pressable
+                  onPress={() => {
+                    setFavourites([...favourites, isShowCity[0].cityName]);
+                    setIsShowCity([{ cityName: "", showCity: false }]);
+                  }}
+                  style={{
+                    borderRadius: 10,
+                    width: 80,
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "#D81E5B",
+                      fontWeight: "600",
+                      textAlign: "center",
+                    }}
+                  >
+                    Like it!
+                  </Text>
+                  <MaterialCommunityIcons
+                    name="cards-heart"
+                    size={48}
+                    color={"#D81E5B"}
+                  />
+                </Pressable>
+              </View>
+              <Text style={{ margin: 20 }}>
+                Or visit a nearby city in India!
+              </Text>
             </View>
           </View>
         </Modal>
@@ -1894,4 +1931,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MainPage;
+export default Discover;
