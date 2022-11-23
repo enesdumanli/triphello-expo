@@ -1614,8 +1614,6 @@ const CityInformation = ({ route, navigation }) => {
     });
   }, []);
 
-  console.log(cityData);
-
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -1637,7 +1635,7 @@ const CityInformation = ({ route, navigation }) => {
           uri="https://svgshare.com/i/oBX.svg"
         />
 
-        <View style={{ marginTop: 100 }}>
+        <View style={{ marginTop: 70, height: 250 }}>
           <View>
             <Text
               style={{
@@ -1673,7 +1671,9 @@ const CityInformation = ({ route, navigation }) => {
                       fontSize: 18,
                       color: "#050401",
                       textAlign: "left",
-                      marginVertical: 3,
+                      borderBottomColor: "black",
+                      borderBottomWidth: 2,
+                      marginVertical: 5,
                     }}
                   >
                     ranked at #{cityData[item]} on {item}.{" "}
@@ -1683,6 +1683,19 @@ const CityInformation = ({ route, navigation }) => {
             }}
           />
         </View>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("NearbyCities", { city: city })}
+          style={{
+            backgroundColor: "#30BCED",
+            marginTop: 65,
+            borderRadius: 12,
+            padding: 16,
+          }}
+        >
+          <Text style={{ color: "#FFFAFF" }}>
+            See all cities in {city.split(",")[1]}
+          </Text>
+        </TouchableOpacity>
       </ImageBackground>
     </View>
   );
