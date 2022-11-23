@@ -1,48 +1,17 @@
-import React, { useContext, useState } from "react";
 import {
-  StyleSheet,
+  View,
   Text,
   ImageBackground,
-  View,
+  StyleSheet,
   TouchableOpacity,
-  Modal,
-  Pressable,
-  Button,
+  FlatList,
 } from "react-native";
+import React from "react";
 import { SvgUri } from "react-native-svg";
-import DraggableFlatList, {
-  ScaleDecorator,
-} from "react-native-draggable-flatlist";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { FavouritesContext } from "./TabNavigationHandler";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-const Discover = ({ navigation }) => {
-  const filters = [
-    {
-      name: "Traffic",
-    },
-    {
-      name: "Crime",
-    },
-    {
-      name: "Pollution",
-    },
-    {
-      name: "Living Price",
-    },
-    {
-      name: "Property Price",
-    },
-  ];
-
-  const { favourites, setFavourites } = useContext(FavouritesContext);
-
-  const [categories, setCategories] = useState(filters);
-  const [isShowCity, setIsShowCity] = useState([
-    { cityName: "fdfwe", showCity: false },
-  ]);
-
+const CityInformation = ({ route, navigation }) => {
+  const { city } = route.params;
   const CITY_INFORMATION = [
     {
       Crime: 190,
@@ -1637,334 +1606,107 @@ const Discover = ({ navigation }) => {
       Traffic: 1,
     },
   ];
-  const countries = CITY_INFORMATION.map((city) => city.name.split(",")[1]);
-  const cities = CITY_INFORMATION.map((city) => city.name.split(",")[0]);
+  const [cityData, setCityData] = React.useState({});
 
-  const data = [...CITY_INFORMATION];
-
-  let new_data = [];
-
-  const appHandler = () => {
-    let i = categories.length;
-
-    categories.map((filter) => {
-      data.map((city) => {
-        city[filter.name] = city[filter.name] * i;
-      });
-      i--;
+  React.useEffect(() => {
+    CITY_INFORMATION.map((cityObject) => {
+      cityObject.name.includes(city) && setCityData(cityObject);
     });
+  }, []);
 
-    data.map((city) => {
-      let sum = 0;
-      categories.map((filter) => {
-        sum += city[filter.name];
-      });
-      new_data.push({ name: city.name, sum: sum });
-    });
-
-    let temp_city = new_data[0];
-    new_data.map((city) => {
-      city;
-      if (city.sum < temp_city.sum) {
-        temp_city = city;
-      }
-    });
-
-    setIsShowCity([
-      { cityName: temp_city.name, showCity: !isShowCity[0].showCity },
-    ]);
-  };
-
-  const visitNearby = (temp_city) => {
-    let sameCountryCities = [];
-    let itemCountry = temp_city.split(",")[1];
-
-    for (let i = 0; i < countries.length; i++) {
-      if (countries[i] === itemCountry) {
-        sameCountryCities.push(cities[i]);
-      }
-    }
-
-    return sameCountryCities;
-  };
-
-  const renderItem = ({ item, drag, isActive }) => {
-    return (
-      <ScaleDecorator>
-        <TouchableOpacity
-          onLongPress={drag}
-          disabled={isActive}
-          style={[
-            {
-              flexDirection: "row",
-              justifyContent: "space-between",
-              padding: 10,
-              alignSelf: "center",
-              marginVertical: 5,
-              width: 200,
-              borderRadius: 5,
-              backgroundColor: "#80CFA9",
-              opacity: 0.8,
-            },
-          ]}
-        >
-          <Text
-            style={{
-              textAlign: "center",
-              fontSize: 16,
-              fontStyle: "italic",
-              fontWeight: "600",
-            }}
-          >
-            {item.name}
-          </Text>
-          <TouchableOpacity
-            style={{
-              backgroundColor: "#4C6663",
-              paddingHorizontal: 5,
-              borderRadius: 8,
-            }}
-            onPress={() => {
-              setCategories(
-                categories.filter((filterName) => filterName.name !== item.name)
-              );
-            }}
-          >
-            <Text style={{ color: "white" }}>x</Text>
-          </TouchableOpacity>
-        </TouchableOpacity>
-      </ScaleDecorator>
-    );
-  };
+  console.log(cityData);
 
   return (
-    <GestureHandlerRootView style={{ height: "100%" }}>
+    <View style={styles.container}>
       <ImageBackground
-        style={{
-          justifyContent: "center",
-          paddingHorizontal: 60,
-          height: "100%",
-        }}
+        style={styles.innerContainer}
         source={require("../utils/wallpaper.jpg")}
       >
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <MaterialCommunityIcons
+            name="arrow-left"
+            style={{ top: 50, right: 160 }}
+            size={30}
+            color={"black"}
+          />
+        </TouchableOpacity>
         <SvgUri
-          style={{ alignSelf: "center" }}
+          style={{ alignSelf: "center", top: 100 }}
           width="100"
           height="100"
           uri="https://svgshare.com/i/oBX.svg"
         />
-        {/* <View>
-          <Text
-            style={{
-              fontSize: 16,
-              fontWeight: "bold",
-              color: "black",
-            }}
-          >
-            Move the slider to set your budget
-          </Text>
-          <Slider values={[0, 10000]} />
-        </View> */}
-        <View
-          style={{
-            marginHorizontal: -40,
-          }}
-        >
-          <Text
-            style={{ fontWeight: "bold", fontSize: 16, textAlign: "center" }}
-          >
-            Drag and drop the filters to set your preferences.
-          </Text>
 
-          <TouchableOpacity
-            style={{
-              top: 30,
-              borderRadius: 12,
-              alignItems: "center",
-              alignSelf: "baseline",
-            }}
-            onPress={() => setCategories(filters)}
-          >
-            <MaterialCommunityIcons name="refresh" size={24} color={"black"} />
-            <Text style={{ textAlignVertical: "center", fontWeight: "500" }}>
-              Refresh Preferences
-            </Text>
-          </TouchableOpacity>
-        </View>
-        <View style={{ paddingVertical: 50 }}>
-          <DraggableFlatList
-            data={categories}
-            onDragEnd={(thing) => {
-              setCategories(thing.data);
-              thing.data;
-            }}
-            keyExtractor={(item) => item.name}
-            renderItem={renderItem}
-          />
-          <TouchableOpacity
-            onPress={appHandler}
-            style={{
-              padding: 10,
-              opacity: 0.75,
-              backgroundColor: "#A7E2E3",
-              borderRadius: 10,
-              marginTop: 25,
-            }}
-          >
+        <View style={{ marginTop: 100 }}>
+          <View>
             <Text
               style={{
-                textAlign: "center",
+                fontWeight: "600",
                 fontSize: 24,
-                borderRadius: 8,
-                color: "#2a2e2b",
+                color: "#FC5130",
+                textAlign: "center",
               }}
             >
-              Give me city!
+              {city}
             </Text>
-          </TouchableOpacity>
-        </View>
-        <Modal
-          animationType={"fade"}
-          transparent={true}
-          visible={isShowCity[0].showCity}
-        >
-          <View
-            style={{
-              flex: 1,
-              justifyContent: "center",
-              alignItems: "center",
-              marginTop: 22,
-            }}
-          >
-            <View
+            <Text
               style={{
-                margin: 20,
-                backgroundColor: "white",
-                borderRadius: 20,
-                padding: 35,
-                alignItems: "center",
-                shadowColor: "#000",
-                shadowOffset: {
-                  width: 0,
-                  height: 2,
-                },
-                shadowOpacity: 0.25,
-                shadowRadius: 4,
-                elevation: 5,
+                fontWeight: "600",
+                fontSize: 18,
+                color: "#F34213",
+                textAlign: "center",
+                bottom: 5,
               }}
             >
-              <Text
-                style={{
-                  fontSize: 24,
-                  fontWeight: "bold",
-                  color: "#0B4F6C",
-                  textAlign: "center",
-                }}
-              >
-                Let's visit {isShowCity[0].cityName}!
-              </Text>
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-around",
-                  width: "60%",
-                  marginTop: 20,
-                }}
-              >
-                <TouchableOpacity
-                  onPress={() =>
-                    setIsShowCity([{ cityName: "", showCity: false }])
-                  }
-                  style={{
-                    borderRadius: 10,
-                    padding: 10,
-                  }}
-                >
-                  <Text style={{ color: "black", fontWeight: "600" }}>
-                    Try again!
-                  </Text>
-                  <MaterialCommunityIcons
-                    name="refresh"
-                    size={48}
-                    color={"black"}
-                  />
-                </TouchableOpacity>
+              is
+            </Text>
+          </View>
 
-                <TouchableOpacity
-                  onPress={() => {
-                    setFavourites([...favourites, isShowCity[0].cityName]);
-                    setIsShowCity([{ cityName: "", showCity: false }]);
-                  }}
-                  style={{
-                    borderRadius: 10,
-                    width: 80,
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
+          <FlatList
+            data={Object.keys(cityData)}
+            renderItem={({ item }) => {
+              if (item !== "name") {
+                return (
                   <Text
                     style={{
-                      color: "#D81E5B",
                       fontWeight: "600",
-                      textAlign: "center",
+                      fontSize: 18,
+                      color: "#050401",
+                      textAlign: "left",
+                      marginVertical: 3,
                     }}
                   >
-                    Like it!
+                    ranked at #{cityData[item]} on {item}.{" "}
                   </Text>
-                  <MaterialCommunityIcons
-                    name="cards-heart"
-                    size={48}
-                    color={"#D81E5B"}
-                  />
-                </TouchableOpacity>
-              </View>
-              <TouchableOpacity
-                onPress={() => {
-                  let nearbyCities = visitNearby(isShowCity[0].cityName);
-                  navigation.navigate("NearbyCities", {
-                    baseCountry: isShowCity[0].cityName.split(",")[1],
-                    nearbyCities: nearbyCities,
-                  });
-                  setIsShowCity([{ cityName: "", showCity: false }]);
-                }}
-                style={{
-                  backgroundColor: "#E3F09B",
-                  borderRadius: 12,
-                  marginTop: 20,
-                }}
-              >
-                <Text
-                  style={{
-                    margin: 20,
-                    color: "#5B5941",
-                    fontSize: 16,
-                    fontWeight: "bold",
-                    textAlign: "center",
-                  }}
-                >
-                  {`or visit a nearby city in ${
-                    isShowCity[0].cityName.split(",")[1]
-                  }!`}
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </Modal>
+                );
+              }
+            }}
+          />
+        </View>
       </ImageBackground>
-    </GestureHandlerRootView>
+    </View>
   );
 };
+
 const styles = StyleSheet.create({
-  button: {
-    backgroundColor: "blue",
+  container: {
+    flex: 1,
+    height: "100%",
+  },
+  innerContainer: {
+    flex: 1,
+    width: "100%",
     alignItems: "center",
   },
-  rowItem: {
-    height: 100,
-    width: 100,
-    alignItems: "center",
-    justifyContent: "center",
+  text: {
+    color: "rgb(128, 159, 209)",
+    textAlign: "center",
+    top: 100,
+    fontSize: 36,
+    fontWeight: "bold",
+    fontFamily: "sans-serif-condensed",
   },
+  logo: { bottom: "55%" },
 });
 
-export default Discover;
+export default CityInformation;

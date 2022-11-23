@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import TabNavigationHandler from "./src/components/TabNavigationHandler";
 import LandingPage from "./src/components/LandingPage";
 import NearbyCities from "./src/components/NearbyCities";
+import CityInformation from "./src/components/CityInformation";
 
 const Stack = createNativeStackNavigator();
 
@@ -27,6 +28,12 @@ function App() {
         <Stack.Screen
           name="NearbyCities"
           component={NearbyCities}
+          options={{ headerShown: false }}
+        />
+
+        <Stack.Screen
+          name="CityInformation"
+          component={CityInformation}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
