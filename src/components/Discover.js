@@ -1636,10 +1636,12 @@ const Discover = ({ navigation }) => {
       Traffic: 1,
     },
   ];
-
+  const [regionFilteredCityInformation, setRegionFilteredCityInformation] =
+    useState([]);
   const [CITY_INFORMATION, setCITY_INFORMATION] = useState(
     CITY_INFORMATION_DENEME
   );
+  const ALLAHIM = JSON.parse(JSON.stringify(regionFilteredCityInformation));
 
   let regionFilteredCities = [];
 
@@ -1654,13 +1656,14 @@ const Discover = ({ navigation }) => {
         )
       );
       setCITY_INFORMATION(regionFilteredCities);
+      setRegionFilteredCityInformation(regionFilteredCities);
     }
   }, [regions]);
 
   const countries = CITY_INFORMATION.map((city) => city.name.split(",")[1]);
   const cities = CITY_INFORMATION.map((city) => city.name.split(",")[0]);
 
-  const data = [...CITY_INFORMATION];
+  const data = CITY_INFORMATION;
 
   let new_data = [];
 
@@ -1693,6 +1696,10 @@ const Discover = ({ navigation }) => {
     setIsShowCity([
       { cityName: temp_city.name, showCity: !isShowCity[0].showCity },
     ]);
+
+    regionFilteredCityInformation.length > 0
+      ? setCITY_INFORMATION(ALLAHIM)
+      : setCITY_INFORMATION(CITY_INFORMATION_DENEME);
   };
 
   const visitNearby = (temp_city) => {
