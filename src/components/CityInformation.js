@@ -1683,19 +1683,6 @@ const CityInformation = ({ route, navigation }) => {
             }}
           />
         </View>
-        <TouchableOpacity
-          onPress={() => navigation.navigate("NearbyCities", { city: city })}
-          style={{
-            backgroundColor: "#30BCED",
-            marginTop: 65,
-            borderRadius: 12,
-            padding: 16,
-          }}
-        >
-          <Text style={{ color: "#FFFAFF" }}>
-            See all cities in {city.split(",")[1]}
-          </Text>
-        </TouchableOpacity>
       </ImageBackground>
     </View>
   );

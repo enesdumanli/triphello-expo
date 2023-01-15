@@ -6,8 +6,6 @@ import {
   View,
   TouchableOpacity,
   Modal,
-  Pressable,
-  Button,
 } from "react-native";
 import { SvgUri } from "react-native-svg";
 import DraggableFlatList, {
@@ -36,7 +34,8 @@ const Discover = ({ navigation }) => {
     },
   ];
 
-  const { favourites, setFavourites, regions } = useContext(FavouritesContext);
+  const { favourites, setFavourites, regions, setRegions } =
+    useContext(FavouritesContext);
 
   const [categories, setCategories] = useState(filters);
   const [isShowCity, setIsShowCity] = useState([
@@ -1641,11 +1640,15 @@ const Discover = ({ navigation }) => {
   const [CITY_INFORMATION, setCITY_INFORMATION] = useState(
     CITY_INFORMATION_DENEME
   );
-  const ALLAHIM = JSON.parse(JSON.stringify(regionFilteredCityInformation));
+  const REGION_FILTERED_ALL_DATA = JSON.parse(
+    JSON.stringify(regionFilteredCityInformation)
+  );
 
   let regionFilteredCities = [];
 
   useEffect(() => {
+    console.log(regions.length);
+
     if (regions.length > 0) {
       regions.map((regions) =>
         regions.map((regionCity) =>
@@ -1657,6 +1660,8 @@ const Discover = ({ navigation }) => {
       );
       setCITY_INFORMATION(regionFilteredCities);
       setRegionFilteredCityInformation(regionFilteredCities);
+    } else {
+      setRegionFilteredCityInformation(CITY_INFORMATION_DENEME);
     }
   }, [regions]);
 
@@ -1698,7 +1703,7 @@ const Discover = ({ navigation }) => {
     ]);
 
     regionFilteredCityInformation.length > 0
-      ? setCITY_INFORMATION(ALLAHIM)
+      ? setCITY_INFORMATION(REGION_FILTERED_ALL_DATA)
       : setCITY_INFORMATION(CITY_INFORMATION_DENEME);
   };
 
@@ -1810,7 +1815,11 @@ const Discover = ({ navigation }) => {
               alignItems: "center",
               alignSelf: "baseline",
             }}
-            onPress={() => setCategories(filters)}
+            onPress={() => {
+              setCategories(filters);
+              setRegions([]);
+              setCITY_INFORMATION(CITY_INFORMATION_DENEME);
+            }}
           >
             <MaterialCommunityIcons name="refresh" size={24} color={"black"} />
             <Text style={{ textAlignVertical: "center", fontWeight: "500" }}>

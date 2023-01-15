@@ -4,12 +4,12 @@ import Discover from "./Discover";
 import Favourites from "./Favourites";
 import React from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import Profile from "./Profile";
+import Settings from "./Settings";
 
 const Tab = createBottomTabNavigator();
 export const FavouritesContext = React.createContext(null);
 
-const WelcomeScreen = () => {
+const TabNavigationHandler = () => {
   const [favourites, setFavourites] = React.useState([]);
   const [regions, setRegions] = React.useState([]);
 
@@ -29,6 +29,7 @@ const WelcomeScreen = () => {
             tabBarLabelStyle: {
               fontSize: 12,
             },
+            tabBarInactiveTintColor: "#23395B",
             tabBarActiveTintColor: "#D81E5B",
             tabBarActiveBackgroundColor: "#FFFD98",
           }}
@@ -55,12 +56,16 @@ const WelcomeScreen = () => {
         />
 
         <Tab.Screen
-          name="Profile"
-          component={Profile}
+          name="Settings"
+          component={Settings}
           options={{
             headerShown: false,
             tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name="account" color={color} size={24} />
+              <MaterialCommunityIcons
+                name="cog-outline"
+                color={color}
+                size={24}
+              />
             ),
             tabBarLabelStyle: {
               fontSize: 12,
@@ -77,5 +82,8 @@ const WelcomeScreen = () => {
 
 // from our estimates, you care about the following lines:
 // home page that covers the basics of the app
+// daha fazla recommended city göster
+// bugları çöz
+// kıtaları ekle
 
-export default WelcomeScreen;
+export default TabNavigationHandler;

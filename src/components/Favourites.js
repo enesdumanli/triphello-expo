@@ -20,6 +20,9 @@ const Favourites = ({ navigation }) => {
           margin: 5,
           backgroundColor: "#DBD56E",
           borderRadius: 12,
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
         }}
         onPress={() => navigation.navigate("CityInformation", { city: item })}
       >
@@ -28,14 +31,16 @@ const Favourites = ({ navigation }) => {
         <TouchableOpacity
           style={{
             backgroundColor: "#4C6663",
-            paddingHorizontal: 5,
+            justifyContent: "center",
+            alignItems: "center",
             borderRadius: 8,
+            padding: 7,
           }}
           onPress={() => {
             setFavourites(favourites.filter((itemMap) => itemMap !== item));
           }}
         >
-          <Text style={{ color: "white" }}>x</Text>
+          <Text style={{ color: "white", textAlign: "center" }}>x</Text>
         </TouchableOpacity>
       </TouchableOpacity>
     );

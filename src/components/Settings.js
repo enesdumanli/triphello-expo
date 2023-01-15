@@ -1,9 +1,19 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  ImageBackground,
+  FlatList,
+} from "react-native";
 import React, { useContext } from "react";
+import { SvgUri } from "react-native-svg";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+
 import { FavouritesContext } from "./TabNavigationHandler";
 
 export default function Profile() {
   const { regions, setRegions } = useContext(FavouritesContext);
+  const [generalRegions, setGeneralRegions] = React.useState([]);
 
   const REGIONS = {
     Europe: [
@@ -242,16 +252,120 @@ export default function Profile() {
   };
 
   return (
-    <View style={{ padding: 100 }}>
-      <TouchableOpacity
-        onPress={() => setRegions([...regions, REGIONS.Europe])}
-      >
-        <Text>Add Europe</Text>
-      </TouchableOpacity>
+    <ImageBackground
+      style={{
+        paddingHorizontal: 60,
+        height: "100%",
+      }}
+      source={require("../utils/wallpaper.jpg")}
+    >
+      <SvgUri
+        style={{ alignSelf: "center", top: 51 }}
+        width="100"
+        height="100"
+        uri="https://svgshare.com/i/oBX.svg"
+      />
 
-      <TouchableOpacity>
-        <Text>Add North America</Text>
-      </TouchableOpacity>
-    </View>
+      <View style={{ top: 50 }}>
+        <TouchableOpacity
+          style={{
+            backgroundColor: "#8FF7A7",
+            margin: 10,
+            padding: 12,
+            borderRadius: 12,
+            opacity: 0.8,
+            alignItems: "center",
+          }}
+          onPress={() => {
+            setRegions([...regions, REGIONS.Europe]);
+            setGeneralRegions([...generalRegions, "Europe"]);
+          }}
+        >
+          <Text style={{ color: "#757761" }}>Filter Europe</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={{
+            backgroundColor: "#8FF7A7",
+            margin: 10,
+            padding: 12,
+            borderRadius: 12,
+            opacity: 0.8,
+            alignItems: "center",
+          }}
+          onPress={() => {
+            setRegions([...regions, REGIONS.NorthAmerica]);
+            setGeneralRegions([...generalRegions, "North America"]);
+          }}
+        >
+          <Text style={{ color: "#757761" }}>Filter North America</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={{
+            backgroundColor: "#8FF7A7",
+            margin: 10,
+            padding: 12,
+            borderRadius: 12,
+            opacity: 0.8,
+            alignItems: "center",
+          }}
+          onPress={() => {
+            setRegions([...regions, REGIONS.SouthAmerica]);
+            setGeneralRegions([...generalRegions, "South America"]);
+          }}
+        >
+          <Text style={{ color: "#757761" }}>Filter South America</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={{
+            backgroundColor: "#8FF7A7",
+            margin: 10,
+            padding: 12,
+            borderRadius: 12,
+            opacity: 0.8,
+            alignItems: "center",
+          }}
+          onPress={() => {
+            setRegions([...regions, REGIONS.Asia]);
+            setGeneralRegions([...generalRegions, "Asia"]);
+          }}
+        >
+          <Text style={{ color: "#757761" }}>Filter Asia</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={{
+            backgroundColor: "#8FF7A7",
+            margin: 10,
+            padding: 12,
+            borderRadius: 12,
+            opacity: 0.8,
+            alignItems: "center",
+          }}
+          onPress={() => {
+            setRegions([...regions, REGIONS.Africa_MiddleEast]);
+            setGeneralRegions([...generalRegions, "Africa & Middle East"]);
+          }}
+        >
+          <Text style={{ color: "#757761" }}>Filter Africa & Middle East</Text>
+        </TouchableOpacity>
+
+        {regions.length > 0 && (
+          <Text
+            style={{
+              fontSize: 16,
+              color: "#0E273C",
+              textAlign: "center",
+              fontWeight: "bold",
+            }}
+          >
+            You are shown countries from only{" "}
+            {generalRegions[generalRegions.length - 1]}
+          </Text>
+        )}
+      </View>
+    </ImageBackground>
   );
 }
