@@ -26,7 +26,16 @@ const Favourites = ({ navigation }) => {
         }}
         onPress={() => navigation.navigate("CityInformation", { city: item })}
       >
-        <Text style={{ color: "#2D93AD", textAlign: "center" }}>{item}</Text>
+        <Text
+          style={{
+            color: "#2D93AD",
+            textAlign: "center",
+            fontWeight: "bold",
+            fontSize: 14,
+          }}
+        >
+          {item}
+        </Text>
 
         <TouchableOpacity
           style={{
@@ -40,7 +49,11 @@ const Favourites = ({ navigation }) => {
             setFavourites(favourites.filter((itemMap) => itemMap !== item));
           }}
         >
-          <Text style={{ color: "white", textAlign: "center" }}>x</Text>
+          <Text
+            style={{ color: "white", textAlign: "center", fontWeight: "bold" }}
+          >
+            x
+          </Text>
         </TouchableOpacity>
       </TouchableOpacity>
     );
@@ -61,6 +74,19 @@ const Favourites = ({ navigation }) => {
         height="100"
         uri="https://svgshare.com/i/oBX.svg"
       />
+
+      <Text
+        style={{
+          fontSize: 24,
+          fontWeight: "bold",
+          textAlign: "center",
+          marginTop: 50,
+          color: "#009FB7",
+        }}
+      >
+        Your Favourites!
+      </Text>
+
       <FlatList
         style={{ top: 100 }}
         data={favourites}

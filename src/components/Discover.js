@@ -1691,10 +1691,19 @@ const Discover = ({ navigation }) => {
     });
 
     let temp_city = new_data[0];
+    let second_temp_city = new_data[1];
+    let third_temp_city = new_data[2];
     new_data.map((city) => {
-      city;
       if (city.sum < temp_city.sum) {
         temp_city = city;
+      }
+
+      if (city.sum < second_temp_city.sum && city.sum > temp_city.sum) {
+        second_temp_city = city;
+      }
+
+      if (city.sum < third_temp_city.sum && city.sum > second_temp_city.sum) {
+        third_temp_city = city;
       }
     });
 
@@ -1829,6 +1838,7 @@ const Discover = ({ navigation }) => {
         </View>
         <View style={{ paddingVertical: 50 }}>
           <DraggableFlatList
+            style={{ height: 288 }}
             data={categories}
             onDragEnd={(thing) => {
               setCategories(thing.data);
