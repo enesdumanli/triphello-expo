@@ -1653,8 +1653,6 @@ const Discover = ({ navigation }) => {
   let regionFilteredCities = [];
 
   useEffect(() => {
-    console.log(regions.length);
-
     if (regions.length > 0) {
       regions.map((regions) =>
         regions.map((regionCity) =>
@@ -2009,6 +2007,7 @@ const Discover = ({ navigation }) => {
               </TouchableOpacity>
 
               <TouchableOpacity
+                style={{ marginTop: 20, marginLeft: 180 }}
                 onPress={() => {
                   setIsShowCity2([
                     {
@@ -2019,7 +2018,11 @@ const Discover = ({ navigation }) => {
                   setIsShowCity([{ cityName: "", showCity: false }]);
                 }}
               >
-                <Text>go next</Text>
+                <MaterialCommunityIcons
+                  name="chevron-right"
+                  size={32}
+                  color={"black"}
+                />
               </TouchableOpacity>
             </View>
           </View>
@@ -2150,38 +2153,56 @@ const Discover = ({ navigation }) => {
                 </Text>
               </TouchableOpacity>
 
-              <TouchableOpacity
-                onPress={() => {
-                  setIsShowCity2([
-                    {
-                      cityName: "wdwdwq",
-                      showCity: false,
-                    },
-                  ]);
-                  setIsShowCity([
-                    {
-                      cityName: temp_city.name,
-                      showCity: !isShowCity[0].showCity,
-                    },
-                  ]);
+              <View
+                style={{
+                  flexDirection: "row",
+                  marginTop: 20,
+                  width: "100%",
                 }}
               >
-                <Text>go prev</Text>
-              </TouchableOpacity>
+                <TouchableOpacity
+                  style={{ marginTop: 20, marginRight: 180 }}
+                  onPress={() => {
+                    setIsShowCity2([
+                      {
+                        cityName: "wdwdwq",
+                        showCity: false,
+                      },
+                    ]);
+                    setIsShowCity([
+                      {
+                        cityName: temp_city.name,
+                        showCity: !isShowCity[0].showCity,
+                      },
+                    ]);
+                  }}
+                >
+                  <MaterialCommunityIcons
+                    name="chevron-left"
+                    size={32}
+                    color={"black"}
+                  />
+                </TouchableOpacity>
 
-              <TouchableOpacity
-                onPress={() => {
-                  setIsShowCity3([
-                    {
-                      cityName: third_temp_city.name,
-                      showCity: !isShowCity3[0].showCity,
-                    },
-                  ]);
-                  setIsShowCity2([{ cityName: "", showCity: false }]);
-                }}
-              >
-                <Text>go next</Text>
-              </TouchableOpacity>
+                <TouchableOpacity
+                  style={{ marginTop: 20 }}
+                  onPress={() => {
+                    setIsShowCity3([
+                      {
+                        cityName: third_temp_city.name,
+                        showCity: !isShowCity3[0].showCity,
+                      },
+                    ]);
+                    setIsShowCity2([{ cityName: "", showCity: false }]);
+                  }}
+                >
+                  <MaterialCommunityIcons
+                    name="chevron-right"
+                    size={32}
+                    color={"black"}
+                  />
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
         </Modal>
@@ -2312,6 +2333,7 @@ const Discover = ({ navigation }) => {
               </TouchableOpacity>
 
               <TouchableOpacity
+                style={{ marginTop: 20, marginRight: 180 }}
                 onPress={() => {
                   setIsShowCity2([
                     {
@@ -2322,7 +2344,11 @@ const Discover = ({ navigation }) => {
                   setIsShowCity3([{ cityName: "", showCity: false }]);
                 }}
               >
-                <Text>go prev</Text>
+                <MaterialCommunityIcons
+                  name="chevron-left"
+                  size={32}
+                  color={"black"}
+                />
               </TouchableOpacity>
             </View>
           </View>

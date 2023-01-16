@@ -267,103 +267,115 @@ export default function Profile() {
       />
 
       <View style={{ top: 50 }}>
-        <TouchableOpacity
-          style={{
-            backgroundColor: "#8FF7A7",
-            margin: 10,
-            padding: 12,
-            borderRadius: 12,
-            opacity: 0.8,
-            alignItems: "center",
-          }}
-          onPress={() => {
-            setRegions([...regions, REGIONS.Europe]);
-            setGeneralRegions([...generalRegions, "Europe"]);
-          }}
-        >
-          <Text style={{ color: "#757761" }}>Filter Europe</Text>
-        </TouchableOpacity>
+        {regions.length === 0 && (
+          <>
+            <TouchableOpacity
+              style={{
+                backgroundColor: "#8FF7A7",
+                margin: 10,
+                padding: 12,
+                borderRadius: 12,
+                opacity: 0.8,
+                alignItems: "center",
+              }}
+              onPress={() => {
+                setRegions([REGIONS.Europe]);
+                setGeneralRegions(["Europe"]);
+              }}
+            >
+              <Text style={{ color: "#757761" }}>Filter Europe</Text>
+            </TouchableOpacity>
 
-        <TouchableOpacity
-          style={{
-            backgroundColor: "#8FF7A7",
-            margin: 10,
-            padding: 12,
-            borderRadius: 12,
-            opacity: 0.8,
-            alignItems: "center",
-          }}
-          onPress={() => {
-            setRegions([...regions, REGIONS.NorthAmerica]);
-            setGeneralRegions([...generalRegions, "North America"]);
-          }}
-        >
-          <Text style={{ color: "#757761" }}>Filter North America</Text>
-        </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                backgroundColor: "#8FF7A7",
+                margin: 10,
+                padding: 12,
+                borderRadius: 12,
+                opacity: 0.8,
+                alignItems: "center",
+              }}
+              onPress={() => {
+                setRegions([REGIONS.NorthAmerica]);
+                setGeneralRegions(["North America"]);
+              }}
+            >
+              <Text style={{ color: "#757761" }}>Filter North America</Text>
+            </TouchableOpacity>
 
-        <TouchableOpacity
-          style={{
-            backgroundColor: "#8FF7A7",
-            margin: 10,
-            padding: 12,
-            borderRadius: 12,
-            opacity: 0.8,
-            alignItems: "center",
-          }}
-          onPress={() => {
-            setRegions([...regions, REGIONS.SouthAmerica]);
-            setGeneralRegions([...generalRegions, "South America"]);
-          }}
-        >
-          <Text style={{ color: "#757761" }}>Filter South America</Text>
-        </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                backgroundColor: "#8FF7A7",
+                margin: 10,
+                padding: 12,
+                borderRadius: 12,
+                opacity: 0.8,
+                alignItems: "center",
+              }}
+              onPress={() => {
+                setRegions([REGIONS.SouthAmerica]);
+                setGeneralRegions(["South America"]);
+              }}
+            >
+              <Text style={{ color: "#757761" }}>Filter South America</Text>
+            </TouchableOpacity>
 
-        <TouchableOpacity
-          style={{
-            backgroundColor: "#8FF7A7",
-            margin: 10,
-            padding: 12,
-            borderRadius: 12,
-            opacity: 0.8,
-            alignItems: "center",
-          }}
-          onPress={() => {
-            setRegions([...regions, REGIONS.Asia]);
-            setGeneralRegions([...generalRegions, "Asia"]);
-          }}
-        >
-          <Text style={{ color: "#757761" }}>Filter Asia</Text>
-        </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                backgroundColor: "#8FF7A7",
+                margin: 10,
+                padding: 12,
+                borderRadius: 12,
+                opacity: 0.8,
+                alignItems: "center",
+              }}
+              onPress={() => {
+                setRegions([REGIONS.Asia]);
+                setGeneralRegions(["Asia"]);
+              }}
+            >
+              <Text style={{ color: "#757761" }}>Filter Asia</Text>
+            </TouchableOpacity>
 
-        <TouchableOpacity
-          style={{
-            backgroundColor: "#8FF7A7",
-            margin: 10,
-            padding: 12,
-            borderRadius: 12,
-            opacity: 0.8,
-            alignItems: "center",
-          }}
-          onPress={() => {
-            setRegions([...regions, REGIONS.Africa_MiddleEast]);
-            setGeneralRegions([...generalRegions, "Africa & Middle East"]);
-          }}
-        >
-          <Text style={{ color: "#757761" }}>Filter Africa & Middle East</Text>
-        </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                backgroundColor: "#8FF7A7",
+                margin: 10,
+                padding: 12,
+                borderRadius: 12,
+                opacity: 0.8,
+                alignItems: "center",
+              }}
+              onPress={() => {
+                setRegions([REGIONS.Africa_MiddleEast]);
+                setGeneralRegions(["Africa & Middle East"]);
+              }}
+            >
+              <Text style={{ color: "#757761" }}>
+                Filter Africa & Middle East
+              </Text>
+            </TouchableOpacity>
+          </>
+        )}
 
         {regions.length > 0 && (
-          <Text
-            style={{
-              fontSize: 16,
-              color: "#0E273C",
-              textAlign: "center",
-              fontWeight: "bold",
-            }}
-          >
-            You are shown countries from only{" "}
-            {generalRegions[generalRegions.length - 1]}
-          </Text>
+          <View>
+            <Text
+              style={{
+                fontSize: 16,
+                color: "#0E273C",
+                textAlign: "center",
+                fontWeight: "bold",
+              }}
+            >
+              You are shown countries from only {generalRegions[0]}
+            </Text>
+
+            <Text style={{ top: 20, fontStyle: "italic", fontWeight: "bold" }}>
+              You need to refresh preferences on Discover page to filter another
+              region.
+            </Text>
+          </View>
         )}
       </View>
     </ImageBackground>
