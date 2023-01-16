@@ -41,6 +41,12 @@ const Discover = ({ navigation }) => {
   const [isShowCity, setIsShowCity] = useState([
     { cityName: "fdfwe", showCity: false },
   ]);
+  const [isShowCity2, setIsShowCity2] = useState([
+    { cityName: "fdfwe", showCity: false },
+  ]);
+  const [isShowCity3, setIsShowCity3] = useState([
+    { cityName: "fdfwe", showCity: false },
+  ]);
   const CITY_INFORMATION_DENEME = [
     {
       Crime: 190,
@@ -1672,6 +1678,10 @@ const Discover = ({ navigation }) => {
 
   let new_data = [];
 
+  const [temp_city, setTempCity] = useState("");
+  const [second_temp_city, setSecondTempCity] = useState("");
+  const [third_temp_city, setThirdTempCity] = useState("");
+
   const appHandler = () => {
     let i = categories.length;
 
@@ -1706,6 +1716,10 @@ const Discover = ({ navigation }) => {
         third_temp_city = city;
       }
     });
+
+    setTempCity(temp_city);
+    setSecondTempCity(second_temp_city);
+    setThirdTempCity(third_temp_city);
 
     setIsShowCity([
       { cityName: temp_city.name, showCity: !isShowCity[0].showCity },
@@ -1992,6 +2006,323 @@ const Discover = ({ navigation }) => {
                     isShowCity[0].cityName.split(",")[1]
                   }!`}
                 </Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() => {
+                  setIsShowCity2([
+                    {
+                      cityName: second_temp_city.name,
+                      showCity: !isShowCity2[0].showCity,
+                    },
+                  ]);
+                  setIsShowCity([{ cityName: "", showCity: false }]);
+                }}
+              >
+                <Text>go next</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
+
+        <Modal
+          animationType={"fade"}
+          transparent={true}
+          visible={isShowCity2[0].showCity}
+        >
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: 22,
+            }}
+          >
+            <View
+              style={{
+                margin: 20,
+                backgroundColor: "white",
+                borderRadius: 20,
+                padding: 35,
+                alignItems: "center",
+                shadowColor: "#000",
+                shadowOffset: {
+                  width: 0,
+                  height: 2,
+                },
+                shadowOpacity: 0.25,
+                shadowRadius: 4,
+                elevation: 5,
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 24,
+                  fontWeight: "bold",
+                  color: "#0B4F6C",
+                  textAlign: "center",
+                }}
+              >
+                Let's visit {isShowCity2[0].cityName}!
+              </Text>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-around",
+                  width: "60%",
+                  marginTop: 20,
+                }}
+              >
+                <TouchableOpacity
+                  onPress={() =>
+                    setIsShowCity2([{ cityName: "", showCity: false }])
+                  }
+                  style={{
+                    borderRadius: 10,
+                    padding: 10,
+                  }}
+                >
+                  <Text style={{ color: "black", fontWeight: "600" }}>
+                    Try again!
+                  </Text>
+                  <MaterialCommunityIcons
+                    name="refresh"
+                    size={48}
+                    color={"black"}
+                  />
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  onPress={() => {
+                    setFavourites([...favourites, isShowCity2[0].cityName]);
+                    setIsShowCity2([{ cityName: "", showCity: false }]);
+                  }}
+                  style={{
+                    borderRadius: 10,
+                    width: 80,
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "#D81E5B",
+                      fontWeight: "600",
+                      textAlign: "center",
+                    }}
+                  >
+                    Like it!
+                  </Text>
+                  <MaterialCommunityIcons
+                    name="cards-heart"
+                    size={48}
+                    color={"#D81E5B"}
+                  />
+                </TouchableOpacity>
+              </View>
+              <TouchableOpacity
+                onPress={() => {
+                  let nearbyCities = visitNearby(isShowCity2[0].cityName);
+                  navigation.navigate("NearbyCities", {
+                    baseCountry: isShowCity2[0].cityName.split(",")[1],
+                    nearbyCities: nearbyCities,
+                  });
+                  setIsShowCity2([{ cityName: "", showCity: false }]);
+                }}
+                style={{
+                  backgroundColor: "#E3F09B",
+                  borderRadius: 12,
+                  marginTop: 20,
+                }}
+              >
+                <Text
+                  style={{
+                    margin: 20,
+                    color: "#5B5941",
+                    fontSize: 16,
+                    fontWeight: "bold",
+                    textAlign: "center",
+                  }}
+                >
+                  {`or visit a nearby city in ${
+                    isShowCity2[0].cityName.split(",")[1]
+                  }!`}
+                </Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() => {
+                  setIsShowCity2([
+                    {
+                      cityName: "wdwdwq",
+                      showCity: false,
+                    },
+                  ]);
+                  setIsShowCity([
+                    {
+                      cityName: temp_city.name,
+                      showCity: !isShowCity[0].showCity,
+                    },
+                  ]);
+                }}
+              >
+                <Text>go prev</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() => {
+                  setIsShowCity3([
+                    {
+                      cityName: third_temp_city.name,
+                      showCity: !isShowCity3[0].showCity,
+                    },
+                  ]);
+                  setIsShowCity2([{ cityName: "", showCity: false }]);
+                }}
+              >
+                <Text>go next</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
+
+        <Modal
+          animationType={"fade"}
+          transparent={true}
+          visible={isShowCity3[0].showCity}
+        >
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: 22,
+            }}
+          >
+            <View
+              style={{
+                margin: 20,
+                backgroundColor: "white",
+                borderRadius: 20,
+                padding: 35,
+                alignItems: "center",
+                shadowColor: "#000",
+                shadowOffset: {
+                  width: 0,
+                  height: 2,
+                },
+                shadowOpacity: 0.25,
+                shadowRadius: 4,
+                elevation: 5,
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 24,
+                  fontWeight: "bold",
+                  color: "#0B4F6C",
+                  textAlign: "center",
+                }}
+              >
+                Let's visit {isShowCity3[0].cityName}!
+              </Text>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-around",
+                  width: "60%",
+                  marginTop: 20,
+                }}
+              >
+                <TouchableOpacity
+                  onPress={() =>
+                    setIsShowCity3([{ cityName: "", showCity: false }])
+                  }
+                  style={{
+                    borderRadius: 10,
+                    padding: 10,
+                  }}
+                >
+                  <Text style={{ color: "black", fontWeight: "600" }}>
+                    Try again!
+                  </Text>
+                  <MaterialCommunityIcons
+                    name="refresh"
+                    size={48}
+                    color={"black"}
+                  />
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  onPress={() => {
+                    setFavourites([...favourites, isShowCity3[0].cityName]);
+                    setIsShowCity3([{ cityName: "", showCity: false }]);
+                  }}
+                  style={{
+                    borderRadius: 10,
+                    width: 80,
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "#D81E5B",
+                      fontWeight: "600",
+                      textAlign: "center",
+                    }}
+                  >
+                    Like it!
+                  </Text>
+                  <MaterialCommunityIcons
+                    name="cards-heart"
+                    size={48}
+                    color={"#D81E5B"}
+                  />
+                </TouchableOpacity>
+              </View>
+              <TouchableOpacity
+                onPress={() => {
+                  let nearbyCities = visitNearby(isShowCity3[0].cityName);
+                  navigation.navigate("NearbyCities", {
+                    baseCountry: isShowCity3[0].cityName.split(",")[1],
+                    nearbyCities: nearbyCities,
+                  });
+                  setIsShowCity3([{ cityName: "", showCity: false }]);
+                }}
+                style={{
+                  backgroundColor: "#E3F09B",
+                  borderRadius: 12,
+                  marginTop: 20,
+                }}
+              >
+                <Text
+                  style={{
+                    margin: 20,
+                    color: "#5B5941",
+                    fontSize: 16,
+                    fontWeight: "bold",
+                    textAlign: "center",
+                  }}
+                >
+                  {`or visit a nearby city in ${
+                    isShowCity3[0].cityName.split(",")[1]
+                  }!`}
+                </Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() => {
+                  setIsShowCity2([
+                    {
+                      cityName: second_temp_city.name,
+                      showCity: true,
+                    },
+                  ]);
+                  setIsShowCity3([{ cityName: "", showCity: false }]);
+                }}
+              >
+                <Text>go prev</Text>
               </TouchableOpacity>
             </View>
           </View>
