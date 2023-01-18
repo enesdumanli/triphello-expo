@@ -1686,14 +1686,31 @@ const Discover = ({ navigation }) => {
 
     // PRESENTATION-2 HOW DATA REFLECTS OUR FILTERS
     categories.map((filter) => {
-      // console.log(filter);
+      console.log(filter);
       data.map((city) => {
         city[filter.name] = city[filter.name] * i;
       });
       i--;
     });
-    console.log(data[0]);
-    // console.log(data[142])
+
+    let not_included_filters = [];
+    const CATEGORIES = [];
+    categories.map((filter) => CATEGORIES.push(filter.name));
+    const FILTERS = [];
+    filters.map((filter) => FILTERS.push(filter.name));
+
+    FILTERS.map((filter) => {
+      CATEGORIES.includes(filter) ? null : not_included_filters.push(filter);
+    });
+
+    not_included_filters.map((filter) => {
+      data.map((city) => {
+        city[filter] = 0;
+      });
+    });
+
+    // console.log(data[0]);
+    // console.log(data[142]);
 
     // PRESENTATION-4 FILTERS APPLIED DATA
     data.map((city) => {
@@ -1703,7 +1720,7 @@ const Discover = ({ navigation }) => {
       });
       new_data.push({ name: city.name, sum: sum });
     });
-    // console.log(new_data[0]);
+    console.log(new_data[0]);
     // console.log(new_data[142]);
 
     let temp_city = new_data[0];
