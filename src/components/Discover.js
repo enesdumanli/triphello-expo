@@ -1686,7 +1686,7 @@ const Discover = ({ navigation }) => {
 
     // PRESENTATION-2 HOW DATA REFLECTS OUR FILTERS
     categories.map((filter) => {
-      console.log(filter);
+      // console.log(filter);
       data.map((city) => {
         city[filter.name] = city[filter.name] * i;
       });
@@ -1720,7 +1720,6 @@ const Discover = ({ navigation }) => {
       });
       new_data.push({ name: city.name, sum: sum });
     });
-    console.log(new_data[0]);
     // console.log(new_data[142]);
 
     let temp_city = new_data[0];
@@ -1729,17 +1728,26 @@ const Discover = ({ navigation }) => {
     // PRESENTATION-5 CHOOSE BEST THREE CITY
     new_data.map((city) => {
       if (city.sum < temp_city.sum) {
+        third_temp_city = second_temp_city;
+        second_temp_city = temp_city;
         temp_city = city;
       }
 
+      // console.log(temp_city.sum);
       if (city.sum < second_temp_city.sum && city.sum > temp_city.sum) {
+        third_temp_city = second_temp_city;
         second_temp_city = city;
       }
+      // console.log(second_temp_city.sum);
 
       if (city.sum < third_temp_city.sum && city.sum > second_temp_city.sum) {
         third_temp_city = city;
       }
     });
+
+    // console.log(temp_city);
+    // console.log(second_temp_city);
+    // console.log(third_temp_city);
 
     setTempCity(temp_city);
     setSecondTempCity(second_temp_city);
