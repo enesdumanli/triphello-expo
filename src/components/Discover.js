@@ -1720,7 +1720,7 @@ const Discover = ({ navigation }) => {
       });
       new_data.push({ name: city.name, sum: sum });
     });
-    // console.log(new_data[142]);
+    // console.log(new_data[0]);
 
     let temp_city = new_data[0];
     let second_temp_city = new_data[1];
@@ -1733,12 +1733,10 @@ const Discover = ({ navigation }) => {
         temp_city = city;
       }
 
-      // console.log(temp_city.sum);
       if (city.sum < second_temp_city.sum && city.sum > temp_city.sum) {
         third_temp_city = second_temp_city;
         second_temp_city = city;
       }
-      // console.log(second_temp_city.sum);
 
       if (city.sum < third_temp_city.sum && city.sum > second_temp_city.sum) {
         third_temp_city = city;
@@ -1907,7 +1905,7 @@ const Discover = ({ navigation }) => {
         <Modal
           animationType={"fade"}
           transparent={true}
-          // here our modal became visible because we set isShowCity.showCity to true
+          // PRESENTATION-MODAL here our modal became visible because we set isShowCity.showCity to true
           visible={isShowCity[0].showCity}
         >
           <View
