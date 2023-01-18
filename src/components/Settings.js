@@ -1,13 +1,6 @@
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  ImageBackground,
-  FlatList,
-} from "react-native";
+import { View, Text, TouchableOpacity, ImageBackground } from "react-native";
 import React, { useContext } from "react";
 import { SvgUri } from "react-native-svg";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 import { FavouritesContext } from "./TabNavigationHandler";
 

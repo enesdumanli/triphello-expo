@@ -4,6 +4,7 @@ import { StyleSheet, Text, ImageBackground, View } from "react-native";
 import { SvgUri } from "react-native-svg";
 
 const LandingPage = ({ navigation }) => {
+  // GENERAL-PRESENTATION-2 LANDING PAGE AND SETTIMEOUT LOGIC
   useEffect(() => {
     setTimeout(() => {
       navigation.navigate("TabNavigationHandler");

@@ -39,15 +39,16 @@ const Discover = ({ navigation }) => {
 
   const [categories, setCategories] = useState(filters);
   const [isShowCity, setIsShowCity] = useState([
-    { cityName: "fdfwe", showCity: false },
+    { cityName: "lorem ipsum", showCity: false },
   ]);
   const [isShowCity2, setIsShowCity2] = useState([
-    { cityName: "fdfwe", showCity: false },
+    { cityName: "lorem ipsum", showCity: false },
   ]);
   const [isShowCity3, setIsShowCity3] = useState([
-    { cityName: "fdfwe", showCity: false },
+    { cityName: "lorem ipsum", showCity: false },
   ]);
-  const CITY_INFORMATION_DENEME = [
+
+  const CITIES_DATA = [
     {
       Crime: 190,
       "Living Price": 67,
@@ -1643,9 +1644,7 @@ const Discover = ({ navigation }) => {
   ];
   const [regionFilteredCityInformation, setRegionFilteredCityInformation] =
     useState([]);
-  const [CITY_INFORMATION, setCITY_INFORMATION] = useState(
-    CITY_INFORMATION_DENEME
-  );
+  const [CITY_INFORMATION, setCITY_INFORMATION] = useState(CITIES_DATA);
   const REGION_FILTERED_ALL_DATA = JSON.parse(
     JSON.stringify(regionFilteredCityInformation)
   );
@@ -1665,7 +1664,7 @@ const Discover = ({ navigation }) => {
       setCITY_INFORMATION(regionFilteredCities);
       setRegionFilteredCityInformation(regionFilteredCities);
     } else {
-      setRegionFilteredCityInformation(CITY_INFORMATION_DENEME);
+      setRegionFilteredCityInformation(CITIES_DATA);
     }
   }, [regions]);
 
@@ -1680,16 +1679,23 @@ const Discover = ({ navigation }) => {
   const [second_temp_city, setSecondTempCity] = useState("");
   const [third_temp_city, setThirdTempCity] = useState("");
 
+  // PRESENTATION-1 CITY RECOMMENDATION LOGIC
+  // console.log("FİLTRELEME SIRALAMAMIZ: ", categories);
   const appHandler = () => {
     let i = categories.length;
 
+    // PRESENTATION-2 HOW DATA REFLECTS OUR FILTERS
     categories.map((filter) => {
+      // console.log(filter);
       data.map((city) => {
         city[filter.name] = city[filter.name] * i;
       });
       i--;
     });
+    console.log(data[0]);
+    // console.log(data[142])
 
+    // PRESENTATION-4 FILTERS APPLIED DATA
     data.map((city) => {
       let sum = 0;
       categories.map((filter) => {
@@ -1697,10 +1703,13 @@ const Discover = ({ navigation }) => {
       });
       new_data.push({ name: city.name, sum: sum });
     });
+    // console.log(new_data[0]);
+    // console.log(new_data[142]);
 
     let temp_city = new_data[0];
     let second_temp_city = new_data[1];
     let third_temp_city = new_data[2];
+    // PRESENTATION-5 CHOOSE BEST THREE CITY
     new_data.map((city) => {
       if (city.sum < temp_city.sum) {
         temp_city = city;
@@ -1719,13 +1728,12 @@ const Discover = ({ navigation }) => {
     setSecondTempCity(second_temp_city);
     setThirdTempCity(third_temp_city);
 
-    setIsShowCity([
-      { cityName: temp_city.name, showCity: !isShowCity[0].showCity },
-    ]);
+    // PRESENTATION-6 SHOW RECOMMENDATION MODAL
+    setIsShowCity([{ cityName: temp_city.name, showCity: true }]);
 
     regionFilteredCityInformation.length > 0
       ? setCITY_INFORMATION(REGION_FILTERED_ALL_DATA)
-      : setCITY_INFORMATION(CITY_INFORMATION_DENEME);
+      : setCITY_INFORMATION(CITIES_DATA);
   };
 
   const visitNearby = (temp_city) => {
@@ -1777,6 +1785,7 @@ const Discover = ({ navigation }) => {
               paddingHorizontal: 5,
               borderRadius: 8,
             }}
+            // PRESENTATION-3 HOW TO REMOVE FILTERS
             onPress={() => {
               setCategories(
                 categories.filter((filterName) => filterName.name !== item.name)
@@ -1806,18 +1815,7 @@ const Discover = ({ navigation }) => {
           height="100"
           uri="https://svgshare.com/i/oBX.svg"
         />
-        {/* <View>
-          <Text
-            style={{
-              fontSize: 16,
-              fontWeight: "bold",
-              color: "black",
-            }}
-          >
-            Move the slider to set your budget
-          </Text>
-          <Slider values={[0, 10000]} />
-        </View> */}
+
         <View
           style={{
             marginHorizontal: -40,
@@ -1836,10 +1834,11 @@ const Discover = ({ navigation }) => {
               alignItems: "center",
               alignSelf: "baseline",
             }}
+            // PRESENTATION-11 REMOVE ALL FILTERS
             onPress={() => {
               setCategories(filters);
               setRegions([]);
-              setCITY_INFORMATION(CITY_INFORMATION_DENEME);
+              setCITY_INFORMATION(CITIES_DATA);
             }}
           >
             <MaterialCommunityIcons name="refresh" size={24} color={"black"} />
@@ -1854,7 +1853,6 @@ const Discover = ({ navigation }) => {
             data={categories}
             onDragEnd={(thing) => {
               setCategories(thing.data);
-              thing.data;
             }}
             keyExtractor={(item) => item.name}
             renderItem={renderItem}
@@ -1884,6 +1882,7 @@ const Discover = ({ navigation }) => {
         <Modal
           animationType={"fade"}
           transparent={true}
+          // here our modal became visible because we set isShowCity.showCity to true
           visible={isShowCity[0].showCity}
         >
           <View
@@ -1950,6 +1949,7 @@ const Discover = ({ navigation }) => {
 
                 <TouchableOpacity
                   onPress={() => {
+                    // PRESENTATION-7 CONTEXT API - ADDING TO FAVOURITES
                     setFavourites([...favourites, isShowCity[0].cityName]);
                     setIsShowCity([{ cityName: "", showCity: false }]);
                   }}
@@ -1978,6 +1978,7 @@ const Discover = ({ navigation }) => {
               </View>
               <TouchableOpacity
                 onPress={() => {
+                  // PRESENTATION-8 NEARBY CITIES BELİRLEME
                   let nearbyCities = visitNearby(isShowCity[0].cityName);
                   navigation.navigate("NearbyCities", {
                     baseCountry: isShowCity[0].cityName.split(",")[1],
@@ -2007,6 +2008,7 @@ const Discover = ({ navigation }) => {
               </TouchableOpacity>
 
               <TouchableOpacity
+                // PRESENTATION-9 SECOND COUNTRY SHOW MODAL
                 style={{ marginTop: 20, marginLeft: 180 }}
                 onPress={() => {
                   setIsShowCity2([
@@ -2183,7 +2185,7 @@ const Discover = ({ navigation }) => {
                     color={"black"}
                   />
                 </TouchableOpacity>
-
+                {/* PRESENTATION-10 THIRD COUNTRY SHOW MODAL */}
                 <TouchableOpacity
                   style={{ marginTop: 20 }}
                   onPress={() => {

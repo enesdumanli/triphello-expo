@@ -75,6 +75,7 @@ const NearbyCities = ({ route, navigation }) => {
                   justifyContent: "space-between",
                 }}
                 onPress={() =>
+                  // HOW WE SEND ITEM DATA TO THE NEXT SCREEN
                   navigation.navigate("CityInformation", { city: item })
                 }
               >

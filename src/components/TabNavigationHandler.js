@@ -13,6 +13,8 @@ const TabNavigationHandler = () => {
   const [favourites, setFavourites] = React.useState([]);
   const [regions, setRegions] = React.useState([]);
 
+  // GENERAL PRESENTATION-3 HOW TO USE CONTEXT
+
   return (
     <FavouritesContext.Provider
       value={{ favourites, setFavourites, regions, setRegions }}
@@ -80,7 +82,6 @@ const TabNavigationHandler = () => {
   );
 };
 
-// from our estimates, you care about the following lines:
 // home page that covers the basics of the app
 // daha fazla recommended city göster
 // bugları çöz

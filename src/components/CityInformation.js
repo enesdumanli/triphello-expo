@@ -1683,6 +1683,9 @@ const CityInformation = ({ route, navigation }) => {
             }}
           />
         </View>
+        <Text style={{ fontWeight: "bold", top: 20 }}>
+          Lower number means better on the topic.
+        </Text>
       </ImageBackground>
     </View>
   );

@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "my-app-trip",
-    "slug": "my-app-trip",
+    "name": "TripHello",
+    "slug": "TripHello",
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
@@ -19,8 +19,14 @@
     "android": {
       "adaptiveIcon": {
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.enesdumanli.myapptrip"
     },
-    "web": {}
+    "web": {},
+    "extra": {
+      "eas": {
+        "projectId": "8f09b0ba-c990-4be7-b981-188bf3611348"
+      }
+    }
   }
 }

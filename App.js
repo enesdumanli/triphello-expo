@@ -6,10 +6,15 @@ import TabNavigationHandler from "./src/components/TabNavigationHandler";
 import LandingPage from "./src/components/LandingPage";
 import NearbyCities from "./src/components/NearbyCities";
 import CityInformation from "./src/components/CityInformation";
+import { LogBox } from "react-native";
 
 const Stack = createNativeStackNavigator();
 
 function App() {
+  LogBox.ignoreAllLogs();
+
+  // GENERAL PRESENTATION-1 APP.JS AND ENTRY POINT
+
   return (
     <NavigationContainer>
       <Stack.Navigator>
